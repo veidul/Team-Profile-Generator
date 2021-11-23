@@ -16,7 +16,7 @@ const getRole = (data) => {
                 message: 'Please enter the managers office number.'
             }
         ])
-        .then(employeeRoleQ => ({...data,...employeeRoleQ}) )
+            .then(employeeRoleQ => ({ ...data, ...employeeRoleQ }))
     }
     if (data.role === 'Engineer') {
         return inquirer.prompt([
@@ -26,7 +26,7 @@ const getRole = (data) => {
                 message: 'Please enter the engineers github user name.'
             }
         ])
-        .then(employeeRoleQ => ({ ...data, ...employeeRoleQ}) )
+            .then(employeeRoleQ => ({ ...data, ...employeeRoleQ }))
     }
     if (data.role === 'Intern') {
         return inquirer.prompt([
@@ -36,8 +36,23 @@ const getRole = (data) => {
                 message: 'Please enter the interns school they attend.'
             }
         ])
-        .then(employeeRoleQ => ({ ...data, ...employeeRoleQ}) )
+            .then(employeeRoleQ => ({ ...data, ...employeeRoleQ }))
     }
+}
+function anotherEmployee() {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'addEmp',
+            message: 'Would you like to add another employee?',
+            choices: ['YES','NO'] 
+        }
+    ])
+        .then(anotherE => {
+            console.log(anotherE)
+            if (anotherE === 'YES') { initFunction() }
+            else {console.log("ALL DONE!")}
+        })
 }
 //Write your app here 
 const initFunction = () => {
@@ -73,13 +88,15 @@ const initFunction = () => {
         // addEmployee(addEmp)
         // ,
     ])
-        .then(getRole).catch(err=>console.log(err))
-        .then(addEmployee).catch(err=>console.log(err))
+        .then(getRole).catch(err => console.log(err))
+        .then(addEmployee).catch(err => console.log(err))
+        .then(anotherEmployee).catch(err => console.log(err))
+
 }
 const employees = []
 function addEmployee(data) {
     console.log(data)
-    if (data.role === 'Manager'){
+    if (data.role === 'Manager') {
         const manager = new Manager(data.name, data.id, data.email, data.officeNumber, data.role)
         employees.push(manager);
         console.log(employees);
@@ -87,7 +104,7 @@ function addEmployee(data) {
     if (data.role === 'Engineer') {
         const engineer = new Engineer(data.name, data.id, data.email, data.github, data.role)
         employees.push(engineer);
-        console.log(employees)    
+        console.log(employees)
     }
     if (data.role === 'Intern') {
         const intern = new intern(data.name, data.id, data.email, data.school, data.role)

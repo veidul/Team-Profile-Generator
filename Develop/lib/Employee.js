@@ -4,7 +4,7 @@ class Employee {
         this.id = id
         this.email = email
         this.role = role
-        
+
 
         // getId()
         // getEmail()
@@ -13,8 +13,8 @@ class Employee {
     }
 
     getRole() {
-        if(this.role === undefined)
-        return "Employee"
+        if (this.role === undefined)
+            return "Employee"
         else {
             return this.role
         }
@@ -29,7 +29,7 @@ class Employee {
         return this.name
     }
 }
-    
 
-    
+
+
 module.exports = Employee;
