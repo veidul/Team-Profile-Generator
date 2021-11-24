@@ -18,9 +18,9 @@ const generateHTML = employees => {
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
                 <title>Team-Profile-Generator</title>
             </head>
-            <body>
-                <h1>Work Employees</h1>
-                <div style="display:flex">
+            <body class=bg-dark>
+                <h1 style="text-align:center; color:white;">Work Employees</h1>
+                <div style="display:flex; justify-content: space-around;">
                 ${employeeCards.join("\n")}
                 </div>
                 <script src="https://kit.fontawesome.com/5fce8efb76.js" crossorigin="anonymous"></script>
@@ -37,17 +37,17 @@ const generateCard = (emp) => {
     if (emp.role === "Manager") {
 
         return `
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
+    <div class="card text-white bg-primary mb-3"" style="width: 18rem;">
+  <div>
     <h5 class="card-title">${emp.name}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-tie"></i></i></h6>
-    <ol class="card-text">
-    ID: ${emp.id}<br>
-    Office Number: ${emp.officeNumber}<br>
-    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
-Email
-</a>
-    </ol>
+    <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-tie"></i></h6>
+    <ul class="card-text">
+    <li>ID: ${emp.id}</li>
+    <li>Office Number: ${emp.officeNumber}</li>
+    <li><a class="text-white" href = "mailto:${emp.email}?subject = Feedback&body = Message">
+    <i class="fas fa-paper-plane"></i>Email
+</a></li>
+    </ul>
     
   </div>
 </div>
@@ -55,17 +55,15 @@ Email
     }
     if (emp.role === "Engineer") {
         return `
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
+    <div class="card text-white bg-success mb-3" style="width: 18rem;">
+  <div>
     <h5 class="card-title">${emp.name}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-astronaut"></i></h6>
-    <ol class="card-text">
-    ID: ${emp.id}<br>
-    <a href = "https://github.com/${emp.github}">Github</a><br>
-    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
-Email
-</a>
-    </ol>
+    <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-astronaut"></i></h6>
+    <ul class="card-text">
+    <li>ID: ${emp.id}</li>
+    <li><a class="text-white" href = "https://github.com/${emp.github}"><i class="fab fa-github-square">GitHub</i></a></li>
+    <li><a class="text-white" href = "mailto:${emp.email}?subject = Feedback&body = Message"><i class="fas fa-paper-plane"></i>Email</a></li>
+    </ul>
     
   </div>
 </div>
@@ -73,17 +71,17 @@ Email
     }
     if (emp.role === "Intern") {
        return `
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
+    <div class="card text-dark bg-warning mb-3" style="width: 18rem;">
+  <div>
     <h5 class="card-title">${emp.name}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-graduate"></i></i></h6>
-    <ol class="card-text">
-    ID: ${emp.id}<br>
-    School: ${emp.school}<br>
-    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
-Email
-</a>
-    </ol>
+    <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-graduate"></i></h6>
+    <ul class="card-text">
+    <li>ID: ${emp.id}</li>
+    <li>School: ${emp.school}</li>
+    <li><a class="text-black" href = "mailto:${emp.email}?subject = Feedback&body = Message">
+    <i class="fas fa-paper-plane"></i>Email
+</a></li>
+    </ul>
     
   </div>
 </div>
