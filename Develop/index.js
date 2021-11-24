@@ -41,7 +41,7 @@ const generateCard = (emp) => {
   <div>
     <h5 class="card-title">${emp.name}</h5>
     <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-tie"></i></h6>
-    <ul class="card-text">
+    <ul class="card-text"> <hr/>
     <li>ID: ${emp.id}</li>
     <li>Office Number: ${emp.officeNumber}</li>
     <li><a class="text-white" href = "mailto:${emp.email}?subject = Feedback&body = Message">
@@ -59,7 +59,7 @@ const generateCard = (emp) => {
   <div>
     <h5 class="card-title">${emp.name}</h5>
     <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-astronaut"></i></h6>
-    <ul class="card-text">
+    <ul class="card-text"> <hr/>
     <li>ID: ${emp.id}</li>
     <li><a class="text-white" href = "https://github.com/${emp.github}"><i class="fab fa-github-square">GitHub</i></a></li>
     <li><a class="text-white" href = "mailto:${emp.email}?subject = Feedback&body = Message"><i class="fas fa-paper-plane"></i>Email</a></li>
@@ -75,7 +75,7 @@ const generateCard = (emp) => {
   <div>
     <h5 class="card-title">${emp.name}</h5>
     <h6 class="card-subtitle">${emp.role}<i class="fas fa-user-graduate"></i></h6>
-    <ul class="card-text">
+    <ul class="card-text"> <hr/>
     <li>ID: ${emp.id}</li>
     <li>School: ${emp.school}</li>
     <li><a class="text-black" href = "mailto:${emp.email}?subject = Feedback&body = Message">
