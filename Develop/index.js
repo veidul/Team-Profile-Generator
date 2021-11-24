@@ -4,7 +4,92 @@ const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
+const { $dataMetaSchema } = require('ajv');
+const employees = []
 
+const generateHTML = employees => {
+    const employeeCards = employees.map((emp)=>generateCard(emp))
+                return `   <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+                <title>Team-Profile-Generator</title>
+            </head>
+            <body>
+                <h1>Work Employees</h1>
+                <div style="display:flex">
+                ${employeeCards.join("\n")}
+                </div>
+                <script src="https://kit.fontawesome.com/5fce8efb76.js" crossorigin="anonymous"></script>
+            </body>
+            </html>`;
+}
+// function employeeLoop(emp) {
+//     console.log(emp)
+//     emp.map(generateCard(emp))
+
+// }
+
+const generateCard = (emp) => {
+    if (emp.role === "Manager") {
+
+        return `
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${emp.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-tie"></i></i></h6>
+    <ol class="card-text">
+    ID: ${emp.id}<br>
+    Office Number: ${emp.officeNumber}<br>
+    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
+Email
+</a>
+    </ol>
+    
+  </div>
+</div>
+    `
+    }
+    if (emp.role === "Engineer") {
+        return `
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${emp.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-astronaut"></i></h6>
+    <ol class="card-text">
+    ID: ${emp.id}<br>
+    <a href = "https://github.com/${emp.github}">Github</a><br>
+    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
+Email
+</a>
+    </ol>
+    
+  </div>
+</div>
+    `
+    }
+    if (emp.role === "Intern") {
+       return `
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${emp.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${emp.role}<i class="fas fa-user-graduate"></i></i></h6>
+    <ol class="card-text">
+    ID: ${emp.id}<br>
+    School: ${emp.school}<br>
+    <a href = "mailto:${emp.email}?subject = Feedback&body = Message">
+Email
+</a>
+    </ol>
+    
+  </div>
+</div>
+    `
+    }
+}
 
 const getRole = (data) => {
     console.log(data.role);
@@ -39,21 +124,28 @@ const getRole = (data) => {
             .then(employeeRoleQ => ({ ...data, ...employeeRoleQ }))
     }
 }
+
 function anotherEmployee() {
     return inquirer.prompt([
         {
             type: 'list',
             name: 'addEmp',
             message: 'Would you like to add another employee?',
-            choices: ['YES','NO'] 
+            choices: ['YES', 'NO']
         }
     ])
         .then(anotherE => {
-            console.log(anotherE)
-            if (anotherE === 'YES') { initFunction() }
-            else {console.log("ALL DONE!")}
+            console.log(employees)
+            if (anotherE.addEmp === 'YES') { initFunction() }
+            else {
+                console.log(employees)
+                generateHTML(employees)
+                fs.writeFileSync("./myteam.html", generateHTML(employees));
+                console.info("Success!");
+            }
         })
 }
+
 //Write your app here 
 const initFunction = () => {
     inquirer.prompt([
@@ -93,7 +185,7 @@ const initFunction = () => {
         .then(anotherEmployee).catch(err => console.log(err))
 
 }
-const employees = []
+
 function addEmployee(data) {
     console.log(data)
     if (data.role === 'Manager') {
@@ -107,7 +199,7 @@ function addEmployee(data) {
         console.log(employees)
     }
     if (data.role === 'Intern') {
-        const intern = new intern(data.name, data.id, data.email, data.school, data.role)
+        const intern = new Intern(data.name, data.id, data.email, data.school, data.role)
         employees.push(intern)
         console.log(employees)
     }
@@ -115,4 +207,5 @@ function addEmployee(data) {
         return
     }
 }
+
 initFunction();
